@@ -1,6 +1,8 @@
 # FastAPI_Tournament
 Simple service for organization tournaments
 
+Цель проекта: Управление турнирами, игроками, командами и автоматический расчет рейтинга участников на основе результатов матчей.
+
 ### Installation
 - Clone repository
 - Create and activate virtual environment in working directory
@@ -12,7 +14,8 @@ $ source .venv/bin/activate
 ```
 - Install dependencies and required libraries
 ```
-(env)$ pip install "fastapi[standard]"
+--(env)$ pip install "fastapi[standard]"--
+--(env)$ pip install sqlmodel psycopg2-binary--
 
 ```
 ### Using

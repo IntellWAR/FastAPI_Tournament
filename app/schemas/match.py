@@ -1,23 +1,15 @@
 from datetime import date
 from pydantic import BaseModel, Field
+from sqlmodel import SQLModel, Field as SQLField
 
 class MatchCreate(BaseModel):
-    tournament_id: int = Field(description="ID турнира")
-    team1_id: int = Field(description="ID первой команды")
-    team2_id: int = Field(description="ID второй команды")
-    winner_id: int | None = Field(
-        default=None, 
-        description="ID победившей команды (опционально)"
-    )
-    match_date: date = Field(description="Дата проведения матча")
+    team1: str = Field(..., example="Team Alpha")
+    team2: str = Field(..., example="Team Beta")
+    match_date: date = Field(..., example="2024-09-01")
+    winner: str | None = Field(None, example="Team Alpha")
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "tournament_id": 1,
-                "team1_id": 10,
-                "team2_id": 20,
-                "winner_id": 10,
-                "match_date": "2024-01-01"
-            }
-        }
+class MatchRead(MatchCreate):
+    id: int
+
+class Match(SQLModel, MatchRead, table=True):
+    id: int | None = SQLField(default=None, primary_key=True)
